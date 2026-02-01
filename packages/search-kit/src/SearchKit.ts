@@ -3,20 +3,26 @@ import { LRUCache } from "./cache/LRUCache";
 
 interface SearchKitOptions {
   cacheCapacity?: number; // 캐시 용량 설정 (기본값: 50개)
+  minQueryLength?: number; // 최소 글자수(옵션)
+
+  onMinLengthFail?: (min: number) => void; // 최소 글자에 해당되지않는 거에 대한 콜백
 }
 
 export class SearchKit {
   private trie: Trie;
   private cache: LRUCache<string[]>; // 검색 결과(문자열 배열)를 저장
+  private onMinLengthFail: ((min: number) => void) | undefined;
+  private minQueryLength: number;
 
   constructor(options: SearchKitOptions = {}) {
-    // 1. 엔진 장착 (Trie)
     this.trie = new Trie();
 
-    // 2. 기억장치 장착 (LRU Cache)
     // 용량을 안 정해주면 기본 50개만 기억함
     const capacity = options.cacheCapacity || 50;
     this.cache = new LRUCache<string[]>(capacity);
+
+    this.minQueryLength = options.minQueryLength ?? 1;
+    this.onMinLengthFail = options.onMinLengthFail;
   }
 
   /**
@@ -41,7 +47,13 @@ export class SearchKit {
   search(query: string): string[] {
     // 0. 빈 검색어 예외 처리
     if (!query) return [];
-
+    // return을 하는 부분이 항상 일관성이 있어야 밖에서 사용할때도 배열인지 함수의 결과타입인지 확인을 할 필요가 없다.
+    if (query.length < this.minQueryLength) {
+      if (this.onMinLengthFail) {
+        this.onMinLengthFail(this.minQueryLength);
+      }
+      return [];
+    }
     // 캐시 키는 소문자로 통일해서 저장 (대소문자 달라도 같은 검색어로 취급)
     // 예: "App" 검색하나 "app" 검색하나 결과는 같으니까요.
     const cacheKey = query.toLowerCase();
