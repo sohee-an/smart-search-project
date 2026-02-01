@@ -1,5 +1,5 @@
 import { Trie } from "./data-structures/Trie";
-import { LRUCache } from "./data-structures/LRUCache";
+import { LRUCache } from "./cache/LRUCache";
 
 interface SearchKitOptions {
   cacheCapacity?: number; // 캐시 용량 설정 (기본값: 50개)

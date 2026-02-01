@@ -1,5 +1,5 @@
-import { DoublyLinkedListNode } from "./DoublyLinkedListNode";
-import { DoublyLinkedList } from "./DoublyLinkedList";
+import { DoublyLinkedListNode } from "../data-structures/DoublyLinkedListNode";
+import { DoublyLinkedList } from "../data-structures/DoublyLinkedList";
 
 export class LRUCache<T> {
   private capacity: number;
