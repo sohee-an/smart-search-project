@@ -7,9 +7,12 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    // "module": "nodenext",
+    "module": "commonjs",
     "target": "esnext",
     "types": [],
+    // 👇 3. import/export 문법을 CommonJS로 자연스럽게 바꿔주는 옵션 (없으면 추가/확인)
+    "esModuleInterop": true,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -35,10 +38,10 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    // "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }

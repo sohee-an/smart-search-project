@@ -2,9 +2,19 @@
   "name": "search-kit",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "build": "tsup src/index.ts --format cjs,esm --dts"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
   },
   "keywords": [],
   "author": "",
@@ -12,6 +22,11 @@
   "packageManager": "pnpm@10.28.0",
   "devDependencies": {
     "@types/node": "^25.0.10",
-    "typescript": "^5.9.3"
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "es-hangul": "^2.3.8"
   }
 }
