@@ -61,4 +61,11 @@ export class LRUCache<T> {
     this.list.addHead(newNode); // 리스트에 추가
     this.map.set(key, newNode); // 맵에 추가
   }
+  /**
+   * cache 부분 초기화하기
+   */
+  clear() {
+    this.map = new Map();
+    this.list = new DoublyLinkedList();
+  }
 }
