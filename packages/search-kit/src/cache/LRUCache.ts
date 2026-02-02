@@ -1,5 +1,5 @@
-import { DoublyLinkedListNode } from "../data-structures/DoublyLinkedListNode";
-import { DoublyLinkedList } from "../data-structures/DoublyLinkedList";
+import { DoublyLinkedListNode } from '../data-structures/DoublyLinkedListNode';
+import { DoublyLinkedList } from '../data-structures/DoublyLinkedList';
 
 export class LRUCache<T> {
   private capacity: number;
@@ -10,6 +10,15 @@ export class LRUCache<T> {
     this.capacity = capacity;
     this.map = new Map();
     this.list = new DoublyLinkedList();
+  }
+
+  /**
+   * 현재검색어가 캐시에 있는지 없는지 확인하는 함수
+   * @param key
+   * @returns
+   */
+  has(key: string): boolean {
+    return this.map.has(key);
   }
 
   get(key: string): T | null {
